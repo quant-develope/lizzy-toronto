@@ -37,11 +37,17 @@
     if (el) dl.push({ event: el.getAttribute('data-track'), link_location: el.className || 'link' });
   });
 
-  // Phones: a call button opens the dialer, then this tab moves on to the "You may be interested" page
+  // Phones: after a call button, show the "You may be interested" page once the visitor comes back
+  // from the phone app. Navigating while the call is still starting makes iOS block it as an
+  // automatic call, so the tab only moves after it was hidden and is visible again.
+  var callTapped = false, leftForCall = false;
   document.addEventListener('click', function (e) {
-    var tel = e.target.closest('a[href^="tel:"]');
-    if (!tel || location.pathname.indexOf('/interested/') === 0) return;
-    setTimeout(function () { location.href = '/interested/'; }, 800);
+    if (e.target.closest('a[href^="tel:"]') && location.pathname.indexOf('/interested/') !== 0) callTapped = true;
+  });
+  document.addEventListener('visibilitychange', function () {
+    if (!callTapped) return;
+    if (document.visibilityState === 'hidden') leftForCall = true;
+    else if (leftForCall) location.href = '/interested/';
   });
 
   // Bottom bar: hidden while the hero or final "Get a free quote" button is on screen,
