@@ -21,7 +21,7 @@
 
 1. Cloudflare → Workers & Pages → Worker `lizzy-toronto` → Settings → Build → подключить репозиторий `quant-develope/lizzy-toronto` (или Create → Import a repository).
 2. Ветка `main`, Root directory — пусто (корень), Build command — пусто (сборка указана в `wrangler.jsonc`), Deploy command — `npx wrangler deploy`.
-3. Имя Worker берётся из `wrangler.jsonc` (`lizzy-toronto`).
+3. Имя Worker берётся из `wrangler.jsonc` (`lizzy-toronto`). Репозиторий подключён к Worker; каждый push в `main` обновляет сайт.
 
 ## Заявки
 
