@@ -484,3 +484,9 @@ body.menu-open { overflow: hidden; }
 @media (prefers-reduced-motion: reduce) { .snow { display: none; } }
 .snow { z-index: 0; }
 .hero .snow { z-index: -1; }
+.form-head p { margin: 6px 0 0; color: #5d6577; }
+.extra-title { margin: 60px auto 18px; color: var(--gold-2); font-weight: 600; }
+.extra-title + .services-grid { margin-top: 0; }
+.quote-section .container { grid-template-columns: minmax(0, 1fr); }
+.trust-main strong { font-size: clamp(1.9rem, 8vw, 2.8rem); }
+@media (max-width: 520px) { .trust-main { flex-direction: column; align-items: flex-start; gap: 8px; } }

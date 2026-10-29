@@ -91,7 +91,7 @@
     var email = form.elements.email;
     if (email.value && !email.checkValidity()) { email.classList.add('invalid'); bad = bad || email; }
     if (bad) {
-      status.textContent = 'Please fill in your name, a 10-digit phone number, city and service.';
+      status.textContent = 'We need your name, a phone number with 10 digits, your city and the job.';
       status.classList.add('error');
       bad.focus();
       return;
@@ -99,7 +99,7 @@
 
     var btn = form.querySelector('button[type=submit]');
     btn.disabled = true;
-    btn.textContent = 'Sending…';
+    btn.textContent = 'One moment…';
     fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } })
       .then(function (r) { return r.json().catch(function () { return {}; }).then(function (d) { return { ok: r.ok, d: d }; }); })
       .then(function (res) {
@@ -108,8 +108,8 @@
       })
       .catch(function () {
         btn.disabled = false;
-        btn.textContent = 'Get my free quote';
-        status.innerHTML = 'Something went wrong. Please call us at <a href="' + document.querySelector('.header-phone').getAttribute('href') + '">' +
+        btn.textContent = 'Send and get a price';
+        status.innerHTML = 'The request did not go through. Phone us instead: <a href="' + document.querySelector('.header-phone').getAttribute('href') + '">' +
           document.querySelector('.header-phone span').textContent + '</a>.';
         status.classList.add('error');
       });

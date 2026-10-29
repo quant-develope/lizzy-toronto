@@ -37,6 +37,8 @@ export async function onRequestPost({ request, env }) {
     return reply(false, 422, 'missing name, phone or service');
   }
 
+  // Domain the lead came from, shown in every notification.
+  lead.site = new URL(request.url).host;
   lead.received = new Date().toISOString();
   lead.ip_country = request.cf?.country || '';
 
@@ -60,6 +62,7 @@ export async function onRequestPost({ request, env }) {
 function summary(lead) {
   const source = [lead.utm_source, lead.utm_medium, lead.utm_campaign, lead.utm_term].filter(Boolean).join(' / ');
   return [
+    `Site: ${lead.site}`,
     `Name: ${lead.name}`,
     `Phone: ${lead.phone}`,
     lead.email && `Email: ${lead.email}`,
@@ -82,7 +85,7 @@ async function sendTelegram(env, lead) {
   const res = await fetch(`https://api.telegram.org/bot${String(env.TELEGRAM_BOT_TOKEN).trim()}/sendMessage`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ chat_id: String(env.TELEGRAM_CHAT_ID).trim(), text: `❄️ New snow removal lead · ${new URL(site.url).host}\n\n${summary(lead)}` }),
+    body: JSON.stringify({ chat_id: String(env.TELEGRAM_CHAT_ID).trim(), text: `❄️ New snow removal lead\n\n${summary(lead)}` }),
   });
   await check(res, 'telegram');
 }
@@ -95,7 +98,7 @@ async function sendEmail(env, lead) {
       from: env.LEAD_EMAIL_FROM || 'Website leads <onboarding@resend.dev>',
       to: env.LEAD_EMAIL_TO.split(',').map((s) => s.trim()),
       reply_to: lead.email || undefined,
-      subject: `New snow removal lead: ${lead.service} — ${lead.city || 'GTA'}`,
+      subject: `New snow removal lead (${lead.site}): ${lead.service} — ${lead.city || 'GTA'}`,
       text: summary(lead),
     }),
   });
