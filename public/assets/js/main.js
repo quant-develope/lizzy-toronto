@@ -37,6 +37,13 @@
     if (el) dl.push({ event: el.getAttribute('data-track'), link_location: el.className || 'link' });
   });
 
+  // Phones: a call button opens the dialer, then this tab moves on to the "You may be interested" page
+  document.addEventListener('click', function (e) {
+    var tel = e.target.closest('a[href^="tel:"]');
+    if (!tel || location.pathname.indexOf('/interested/') === 0) return;
+    setTimeout(function () { location.href = '/interested/'; }, 800);
+  });
+
   // Bottom bar: hidden while the hero or final "Get a free quote" button is on screen,
   // slides up once the visitor has scrolled past the hero button
   var bar = document.querySelector('.sticky-cta');

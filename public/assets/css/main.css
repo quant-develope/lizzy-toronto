@@ -490,3 +490,16 @@ body.menu-open { overflow: hidden; }
 .quote-section .container { grid-template-columns: minmax(0, 1fr); }
 .trust-main strong { font-size: clamp(1.9rem, 8vw, 2.8rem); }
 @media (max-width: 520px) { .trust-main { flex-direction: column; align-items: flex-start; gap: 8px; } }
+
+/* "You may be interested" page, opened after a call button */
+.interested-hero { padding-bottom: 0; }
+.interested-hero h1 { font-size: clamp(1.8rem, 4.6vw, 2.8rem); }
+.interested-hero .section-sub { margin-bottom: 0; }
+.add-ons .relief { margin: 36px 0 24px; }
+.mini-ornaments { display: grid; grid-template-columns: repeat(2, 1fr); gap: 26px 14px; }
+.mini-ornament { display: flex; flex-direction: column; align-items: center; gap: 4px; text-decoration: none; color: #fbf3df; font-weight: 600; text-align: center; }
+.mini-ornament .bauble { width: 130px; --len: 34px; margin-bottom: 8px; }
+.mini-ornament .bauble-glass { width: 130px; height: 130px; }
+.mini-ornament:nth-child(even) .bauble { --len: 56px; }
+@media (min-width: 760px) { .mini-ornaments { grid-template-columns: repeat(3, 1fr); } }
+@media (min-width: 1060px) { .mini-ornaments { grid-template-columns: repeat(6, 1fr); } }

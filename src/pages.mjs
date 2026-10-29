@@ -395,6 +395,43 @@ const lightsPage = () =>
 </section>`,
   });
 
+// Opened in the same tab right after a visitor taps a call button (see main.js).
+const interestedPage = () =>
+  page({
+    path: '/interested/',
+    title: `You may be interested | ${site.brand}`,
+    description: 'Roofline lights, eavestrough care and other snow jobs that pair well with your call.',
+    noindex: true,
+    body: `
+<section class="section interested-hero">
+  ${bokeh()}
+  <div class="container narrow center">
+    <p class="kicker center reveal">${flourish()} You may be interested</p>
+    <h1 class="reveal">A few more things for a cozy winter at home</h1>
+    <p class="section-sub reveal">Whether you have just spoken with us or the line was busy, have a look at what else our team and partners can handle on the same street, the same week.</p>
+  </div>
+</section>
+${moreSection()}
+<section class="section add-ons" aria-labelledby="addons-title">
+  <div class="container">
+    <h2 id="addons-title" class="section-title reveal">Add it to the same visit</h2>
+    <p class="section-sub reveal">Mention any of these on the phone and the crew brings what it needs.</p>
+    <div class="mini-ornaments">
+      ${services.filter((s) => s.ornament).map((s, i) => `
+      <a class="mini-ornament reveal" href="/#${s.id}" style="--i:${i}">
+        ${bauble(s)}
+        <span>${esc(s.title)}</span>
+      </a>`).join('')}
+    </div>
+    <div class="relief reveal">
+      <p><strong>Line was busy?</strong> Try again in a minute, or send a WhatsApp message and we reply right away.</p>
+      <a class="btn btn-call" href="https://wa.me/${site.whatsapp}" target="_blank" rel="noopener" data-track="whatsapp_click">${icon('whatsapp')} <span>WhatsApp us</span></a>
+    </div>
+    <p class="center muted"><a href="/">← Snow removal main page</a></p>
+  </div>
+</section>`,
+  });
+
 const notFound = () =>
   page({
     path: '/404',
@@ -418,6 +455,7 @@ export const pages = () => [
   ['thank-you/index.html', thankYou()],
   ['privacy/index.html', privacy()],
   ['lights/index.html', lightsPage()],
+  ['interested/index.html', interestedPage()],
   ['404.html', notFound()],
 ];
 
