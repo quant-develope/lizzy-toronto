@@ -107,10 +107,10 @@ export const partners = [
 // Photos from real jobs in Toronto. Images live in public/assets/img/work/
 // as .jpg + .webp with the same name; pass the name without extension.
 export const gallery = [
-  { img: 'job-driveway', caption: 'Asphalt showing again', alt: 'Driveway next to a brick home after snow and ice were removed' },
-  { img: 'job-walkway', caption: 'Front path opened to the door', alt: 'Shovelled path leading to the front door of a brick house in Toronto' },
-  { img: 'job-flat-roof', caption: 'Weight off a flat roof', alt: 'Flat roof behind a row of Toronto homes with the heavy snow shovelled off' },
-  { img: 'job-roof-deck', caption: 'Rooftop terrace usable again', alt: 'Rooftop terrace by a door with snow cleared away at night' },
-  { img: 'job-roof-ledge', caption: 'Narrow roof ledge done by hand', alt: 'Snow shovel resting on a narrow roof ledge cleared beside a brick wall' },
-  { img: 'winter-icicles', caption: 'Icicles we are called about', alt: 'Long icicles along a snow-covered gutter' },
+  { img: 'job-driveway', alt: 'Driveway next to a brick home after snow and ice were removed' },
+  { img: 'job-walkway', alt: 'Shovelled path leading to the front door of a brick house in Toronto' },
+  { img: 'job-flat-roof', alt: 'Flat roof behind a row of Toronto homes with the heavy snow shovelled off' },
+  { img: 'job-roof-deck', alt: 'Rooftop terrace by a door with snow cleared away at night' },
+  { img: 'job-roof-ledge', alt: 'Snow shovel resting on a narrow roof ledge cleared beside a brick wall' },
+  { img: 'winter-icicles', alt: 'Long icicles along a snow-covered gutter' },
 ];

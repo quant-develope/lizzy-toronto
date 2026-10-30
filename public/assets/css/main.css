@@ -268,13 +268,6 @@ body.menu-open { overflow: hidden; }
 @media (min-width: 900px) { .services-grid { grid-template-columns: repeat(3, 1fr); } }
 
 /* Pains */
-.pains { background: linear-gradient(180deg, var(--bg), #0e1e44 50%, var(--bg)); }
-.pain-grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
-.pain-card { background: var(--card); border: 1px solid rgba(255,255,255,.08); border-radius: var(--r-md); padding: 26px 24px; position: relative; overflow: hidden; }
-.pain-card::after { content: ""; position: absolute; width: 160px; height: 160px; right: -60px; bottom: -80px; border-radius: 50%; background: radial-gradient(circle, rgba(196,30,42,.22), transparent 70%); }
-.pain-icon { display: inline-grid; place-items: center; width: 52px; height: 52px; border-radius: 16px; background: rgba(196,30,42,.16); color: #ff8a8f; margin-bottom: 14px; }
-.pain-icon .icon { width: 26px; height: 26px; }
-.pain-card p { color: var(--muted); margin: 0; }
 .relief { margin-top: 28px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 24px; background: linear-gradient(135deg, rgba(233,196,106,.14), rgba(233,196,106,.05)); border: 1px solid var(--line); border-radius: var(--r-lg); padding: 22px 26px; }
 .relief p { margin: 0; font-size: 1.06rem; max-width: 40em; }
 .relief strong { color: var(--gold-2); }
@@ -293,8 +286,6 @@ body.menu-open { overflow: hidden; }
 .work-item { position: relative; margin: 0; overflow: hidden; border-radius: var(--r-md); background: var(--navy); box-shadow: 0 0 0 1px rgba(233,196,106,.35), var(--shadow-sm); }
 .work-item img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; transition: transform .6s; }
 .work-item:hover img { transform: scale(1.04); }
-.work-item figcaption { position: absolute; left: 10px; right: 10px; bottom: 10px; width: fit-content; background: rgba(8,20,48,.8); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); color: #fff; font-size: .8rem; font-weight: 600; padding: 6px 12px; border-radius: 999px; border: 1px solid rgba(233,196,106,.3); }
-@media (max-width: 599px) { .work-item figcaption { font-size: .68rem; padding: 4px 9px; left: 6px; bottom: 6px; } }
 @media (min-width: 900px) { .work-grid { grid-template-columns: repeat(3, 1fr); gap: 18px; } .work-item img { aspect-ratio: 4 / 5; } }
 
 /* FAQ */

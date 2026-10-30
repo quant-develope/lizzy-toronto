@@ -132,13 +132,6 @@ const faqs = [
 ];
 
 
-const pains = [
-  ['warn', 'A fall at your door', 'A guest, a courier or a neighbour slips on a glazed step. Beyond the injury, the owner of the property can be asked to answer for it.'],
-  ['clock', 'A missed morning', 'Overnight the plow seals the driveway with a hard, frozen bank. The meeting starts at nine and the car is still not moving.'],
-  ['house', 'A stained ceiling', 'Heat from the attic melts the snow, which refreezes where the roof overhangs. Water pooling behind that ice seeps inside.'],
-  ['shovel', 'A strained back', 'A full shovel of slushy snow is heavier than it looks. Shovelling is a well-known trigger for back and heart trouble every winter.'],
-];
-
 // Animated snowfall layer (pure CSS, see .snow in main.css).
 const snowfall = () => `<div class="snow" aria-hidden="true">${'<i></i>'.repeat(36)}</div>`;
 
@@ -201,26 +194,7 @@ ${marquee()}
     <p class="section-sub reveal">Unfiltered pictures the crews took right after finishing.</p>
     <div class="work-grid">
       ${gallery.map((g) => `
-      <figure class="work-item reveal">${pic(g.img, g.alt)}<figcaption>${esc(g.caption)}</figcaption></figure>`).join('')}
-    </div>
-  </div>
-</section>
-<section class="section pains" aria-labelledby="pains-title">
-  <div class="container">
-    <p class="kicker center reveal">${flourish()} Why not leave it</p>
-    <h2 id="pains-title" class="section-title reveal">What an ignored snowfall <em>costs</em></h2>
-    <p class="section-sub reveal">Lake-effect storms, thaws and sudden deep freezes mean Toronto snow rarely stays soft and harmless for long.</p>
-    <div class="pain-grid">
-      ${pains.map(([i, t, d]) => `
-      <article class="pain-card reveal">
-        <span class="pain-icon">${icon(i)}</span>
-        <h3>${t}</h3>
-        <p>${d}</p>
-      </article>`).join('')}
-    </div>
-    <div class="relief reveal">
-      <p><strong>Leave the shovel in the garage.</strong> Phone us, and a crew does the heavy lifting while you stay warm inside.</p>
-      <a class="btn btn-call" href="tel:${site.phone.tel}" data-track="phone_click">${icon('phone')} <span><span class="call-word">Call </span>${site.phone.display}</span></a>
+      <figure class="work-item reveal">${pic(g.img, g.alt)}</figure>`).join('')}
     </div>
   </div>
 </section>
