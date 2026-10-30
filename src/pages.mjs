@@ -152,7 +152,7 @@ const home = () => {
     <p class="eyebrow reveal">${icon('snow')} Around the clock · about an hour to your door</p>
     <h1 class="reveal"><span class="h1-main">Snow Removal</span><span class="h1-sub">Toronto &amp; GTA</span></h1>
     <p class="hero-services reveal">Driveways <i>·</i> Car Dig-Out <i>·</i> Sidewalks <i>·</i> Salting <i>·</i> Roofs</p>
-    <p class="hero-lead reveal">Ring or text us the moment you need help. A shovelling crew pulls up to your driveway in about an hour.</p>
+    <p class="hero-lead reveal">Ring or text us the moment you need help. A crew pulls up to your driveway in about an hour.</p>
     <div class="hero-ctas reveal">
       <a class="btn btn-call btn-xl" href="tel:${site.phone.tel}" data-track="phone_click">${icon('phone')}<span><span class="call-word">Call </span>${site.phone.display}</span></a>
       <a class="btn btn-glass btn-xl" href="#quote" data-track="quote_click">Price my job</a>
