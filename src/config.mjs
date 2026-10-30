@@ -2,7 +2,7 @@
 export const site = {
   brand: 'Snow Removal Toronto',
   // Production URL, used for canonical links, sitemap and structured data.
-  url: 'https://lizzy-toronto.unknwn-creation.workers.dev',
+  url: 'https://winter-removal.com',
   phone: { display: '(365) 360-8470', tel: '+13653608470' },
   // WhatsApp chat for the green floating button (international format, digits only).
   whatsapp: '13653608470',
