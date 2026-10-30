@@ -142,9 +142,10 @@ body.menu-open { overflow: hidden; }
 
 /* Hero: the ornaments photo on the right, text on the night sky on the left */
 .hero { position: relative; color: #fff; overflow: hidden; background: var(--sky); padding: min(86vw, 440px) 0 150px; isolation: isolate; }
-.hero-bg { position: absolute; left: 0; right: 0; top: 0; height: min(100vw, 520px); z-index: -2; }
-.hero-bg picture { display: block; width: 100%; height: 100%; -webkit-mask-image: linear-gradient(180deg, #000 55%, transparent 100%); mask-image: linear-gradient(180deg, #000 55%, transparent 100%); }
-.hero-bg img { width: 100%; height: 100%; object-fit: cover; object-position: 40% 50%; }
+.hero-bg { position: absolute; left: 0; right: 0; top: 0; height: min(100vw, 520px); z-index: -2; overflow: hidden; container-type: size; -webkit-mask-image: linear-gradient(180deg, #000 55%, transparent 100%); mask-image: linear-gradient(180deg, #000 55%, transparent 100%); }
+/* The artwork keeps its own aspect ratio (like object-fit: cover) so the animated crew stays on its spots */
+.hero-art { position: absolute; left: 40%; top: 50%; width: 100%; width: max(100cqw, 100cqh * 740 / 714); aspect-ratio: 740 / 714; transform: translate(-40%, -50%); }
+.hero-art picture, .hero-art picture img { display: block; width: 100%; height: 100%; }
 .hero .bokeh { z-index: -1; }
 .hero .bokeh i:nth-child(n+9) { display: none; }
 .hero h1 { color: #fbf3df; margin-bottom: .2em; text-shadow: 0 2px 24px rgba(0,0,0,.35); }
@@ -165,8 +166,8 @@ body.menu-open { overflow: hidden; }
 @media (min-width: 900px) {
   .hero { padding: 110px 0 210px; min-height: 700px; }
   .hero-bg { left: auto; width: 62%; height: auto; bottom: 0; }
-  .hero-bg picture { -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 26%), linear-gradient(180deg, #000 70%, transparent 100%); mask-image: linear-gradient(90deg, transparent 0%, #000 26%); }
-  .hero-bg img { object-position: left 40%; }
+  .hero-bg { -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 26%); mask-image: linear-gradient(90deg, transparent 0%, #000 26%); }
+  .hero-art { left: 0; top: 40%; transform: translateY(-40%); }
   .hero::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 180px; background: linear-gradient(180deg, transparent, var(--bg)); z-index: -1; }
   .hero-inner > * { max-width: 560px; }
   .hero-inner > h1 { max-width: 760px; font-size: clamp(2.9rem, 3.7vw, 3.5rem); }
@@ -243,9 +244,10 @@ body.menu-open { overflow: hidden; }
 .bauble::after { content: ""; position: absolute; left: 50%; top: calc(var(--len, 56px) - 12px); width: 12px; height: 12px; border: 2px solid var(--gold); border-radius: 50%; transform: translateX(-50%); }
 .bauble-cap { position: absolute; left: 50%; top: calc(var(--len, 56px) - 2px); width: 40px; height: 18px; transform: translateX(-50%); z-index: 2; border-radius: 4px 4px 3px 3px; background: repeating-linear-gradient(90deg, #f3f5f8 0 3px, #b8c1cd 3px 5px), #dfe4ea; box-shadow: 0 2px 4px rgba(0,0,0,.4); }
 .bauble-glass { position: relative; margin-top: 12px; width: 190px; height: 190px; border-radius: 50%; overflow: hidden; box-shadow: 0 0 0 1.5px rgba(255,255,255,.35), 0 0 34px -4px rgba(247,220,149,.45), 0 20px 40px -14px rgba(0,0,0,.8); }
-.bauble-glass img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s; }
+.bauble-glass .scene { position: relative; width: 100%; height: 100%; transition: transform .8s; }
+.bauble-glass picture img { width: 100%; height: 100%; object-fit: cover; }
 .bauble-glass::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: radial-gradient(circle at 32% 26%, rgba(255,255,255,.55) 0, rgba(255,255,255,.12) 18%, transparent 34%), radial-gradient(circle at 50% 50%, transparent 62%, rgba(10,23,51,.35) 100%); pointer-events: none; }
-.ornament-card:hover .bauble-glass img { transform: scale(1.06); }
+.ornament-card:hover .bauble-glass .scene { transform: scale(1.06); }
 @keyframes swing { 0%, 100% { transform: rotate(2deg); } 50% { transform: rotate(-2deg); } }
 @media (prefers-reduced-motion: reduce) { .bauble { animation: none; } }
 .ornament-card:nth-child(3n+2) .bauble { --len: 86px; }
@@ -503,3 +505,42 @@ body.menu-open { overflow: hidden; }
 .mini-ornament:nth-child(even) .bauble { --len: 56px; }
 @media (min-width: 760px) { .mini-ornaments { grid-template-columns: repeat(3, 1fr); } }
 @media (min-width: 1060px) { .mini-ornaments { grid-template-columns: repeat(6, 1fr); } }
+
+/* The tiny crews inside the artwork: sprites cut from the picture, rocked around their feet or
+   shoulders, plus snow chunks thrown at the moment of each toss (positions come from src/figures.mjs). */
+.crew { position: absolute; inset: 0; pointer-events: none; }
+.fig { position: absolute; max-width: none; height: auto; will-change: transform; animation: 2.4s ease-in-out infinite both; }
+.a-dig { animation-name: crew-dig; animation-duration: 2.6s; }
+.a-throw { animation-name: crew-throw; animation-duration: 2.4s; }
+.a-scoop { animation-name: crew-scoop; animation-duration: 2.8s; }
+.a-rake { animation-name: crew-rake; animation-duration: 3.2s; }
+.a-wave-r { animation-name: crew-wave-r; animation-duration: 6s; }
+.a-wave-l { animation-name: crew-wave-l; animation-duration: 7s; }
+.a-stream { animation-name: crew-stream; animation-duration: 7s; transform-origin: 50% 100%; }
+@keyframes crew-dig { 0%, 80%, 100% { transform: rotate(0); } 25% { transform: rotate(-4deg); } 40% { transform: rotate(-3deg); } 50%, 60% { transform: rotate(6deg); } }
+@keyframes crew-throw { 0%, 80%, 100% { transform: rotate(0); } 25% { transform: rotate(6deg); } 42% { transform: rotate(3deg); } 50%, 60% { transform: rotate(-10deg); } }
+@keyframes crew-scoop { 0%, 80%, 100% { transform: rotate(0); } 25% { transform: rotate(-4deg); } 42% { transform: rotate(-2deg); } 50%, 60% { transform: rotate(7deg); } }
+@keyframes crew-rake { 0%, 85%, 100% { transform: rotate(0); } 30% { transform: rotate(-3deg); } 50%, 58% { transform: rotate(3deg); } }
+@keyframes crew-wave-r { 0%, 40%, 90%, 100% { transform: rotate(0); } 8%, 24% { transform: rotate(-8deg); } 16%, 32% { transform: rotate(3deg); } 48% { transform: rotate(-45deg); } 56%, 72% { transform: rotate(-32deg); } 64% { transform: rotate(-55deg); } 80% { transform: rotate(-50deg); } }
+@keyframes crew-wave-l { 0%, 44%, 93%, 100% { transform: rotate(0); } 9%, 27% { transform: rotate(7deg); } 18%, 36% { transform: rotate(-3deg); } 52% { transform: rotate(70deg); } 60%, 76% { transform: rotate(55deg); } 68% { transform: rotate(85deg); } 84% { transform: rotate(80deg); } }
+@keyframes crew-stream { 0%, 44%, 96%, 100% { opacity: 1; transform: skewX(0); } 9%, 27% { transform: skewX(8deg); } 18%, 36% { transform: skewX(-3deg); } 48%, 91% { opacity: 0; } }
+.chunks { position: absolute; aspect-ratio: 1; transform: translate(-50%, -50%); }
+.chunks i { position: absolute; inset: 0; border-radius: 50%; background: radial-gradient(circle at 42% 38%, #fff 0 30%, #e6eef8 44%, rgba(120,142,176,.8) 60%, rgba(120,142,176,0) 74%); opacity: 0; animation: crew-chunk var(--d, 2.4s) linear infinite; animation-delay: calc(var(--dl, 0s) + var(--o, 0s)); }
+.c-dig { --d: 2.6s; } .c-throw { --d: 2.4s; } .c-scoop { --d: 2.8s; } .c-rake { --d: 3.2s; }
+.c-plume i { animation: crew-plume 1.12s linear infinite; animation-delay: var(--o, 0s); }
+@keyframes crew-chunk {
+  0%, 49% { opacity: 0; transform: translate(0, 0) scale(.5); }
+  52% { opacity: 1; }
+  64% { transform: translate(calc(var(--mx) * 100%), calc(var(--my) * 100%)) scale(1); }
+  80% { opacity: .85; transform: translate(calc(var(--x) * 100%), calc(var(--y) * 100%)) scale(.8); }
+  84%, 100% { opacity: 0; transform: translate(calc(var(--x) * 100%), calc(var(--y) * 100%)) scale(.8); }
+}
+@keyframes crew-plume {
+  0% { opacity: 0; transform: translate(0, 0) scale(.5); }
+  12% { opacity: 1; }
+  45% { transform: translate(calc(var(--mx) * 100%), calc(var(--my) * 100%)) scale(1); }
+  85% { opacity: .8; }
+  100% { opacity: 0; transform: translate(calc(var(--x) * 100%), calc(var(--y) * 100%)) scale(1.1); }
+}
+@media (prefers-reduced-motion: reduce) { .fig, .chunks i { animation: none !important; } }
+

@@ -1,6 +1,7 @@
 import { site, services, cities, partners, gallery } from './config.mjs';
 import { guides } from './guides.mjs';
 import { page, esc, icon } from './layout.mjs';
+import { figures, views } from './figures.mjs';
 
 const pic = (name, alt, { eager = false, cls = '', dir = 'work' } = {}) =>
   `<picture><source type="image/webp" srcset="/assets/img/${dir}/${name}.webp"><img class="${cls}" src="/assets/img/${dir}/${name}.jpg" alt="${esc(alt)}" ${eager ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async"></picture>`;
@@ -12,9 +13,43 @@ const flourish = () =>
 // Soft golden out-of-focus lights, like the tree lights in the hero photo (see .bokeh in main.css).
 const bokeh = () => `<div class="bokeh" aria-hidden="true">${'<i></i>'.repeat(14)}</div>`;
 
+// Animated workers laid over a crop (`views` key) of the ornaments artwork: sprite figures rocking
+// around their feet or shoulders, and snow chunks flying off at the moment of each toss.
+const crewDelay = { carbrush: -0.4, drive_l: -1.1, walk: -1.7, roof: -0.6, car_arm: -2, salt_arm: -4.5, salt_stream: -4.5 };
+// Each chunk: [end x, end y, mid x, mid y, delay s], distances in chunk sizes.
+const chunkPaths = {
+  dig: [[-6, -4, -3, -7, 0], [-8, 0, -4, -6, 0.04], [-4, 1, -2, -5, 0.08], [-9, -2, -5, -8, 0.1]],
+  throw: [[9, -2, 5, -7, 0], [12, 2, 7, -6, 0.04], [7, 3, 4, -4, 0.08], [13, -1, 8, -8, 0.11], [10, 4, 6, -3, 0.15]],
+  scoop: [[-7, -2, -4, -6, 0], [-9, 2, -5, -5, 0.05], [-5, 3, -3, -4, 0.09], [-10, 0, -6, -7, 0.13]],
+  rake: [[-1, 10, -0.5, 3, 0], [1, 12, 0.5, 4, 0.06], [0, 9, 0, 3, 0.12], [-2, 13, -1, 5, 0.18], [2, 11, 1, 4, 0.24]],
+  plume: [[-13, -4, -5, -12, 0], [-15, -2, -6, -13, 0.14], [-12, -5, -4, -11, 0.28], [-14, -3, -6, -12, 0.42], [-11, -4, -4, -13, 0.56], [-15, -5, -7, -11, 0.7], [-13, -2, -5, -12, 0.84], [-12, -3, -5, -14, 0.98]],
+};
+const crew = (key, eager = false) => {
+  const [vx, vy, vw, vh] = views[key];
+  const pc = (v) => `${+v.toFixed(3)}%`;
+  const L = (x) => pc(((x - vx) / vw) * 100);
+  const T = (y) => pc(((y - vy) / vh) * 100);
+  const seen = (x, y, w = 0, h = 0) => x + w > vx && x < vx + vw && y + h > vy && y < vy + vh;
+  const parts = figures.map((f) => {
+    const dl = crewDelay[f.name] || 0;
+    let html = '';
+    if (f.w && seen(f.x, f.y, f.w, f.h)) {
+      const origin = f.anim === 'stream' ? '' : `transform-origin:${f.ox}% ${f.oy}%;`;
+      html += `<img class="fig a-${f.anim}" src="/assets/img/crew/${f.name}.webp" alt="" width="${Math.round(f.w * 2)}" height="${Math.round(f.h * 2)}" ${eager ? '' : 'loading="lazy" '}decoding="async" style="left:${L(f.x)};top:${T(f.y)};width:${pc((f.w / vw) * 100)};${origin}animation-delay:${dl}s">`;
+    }
+    if (f.puff && chunkPaths[f.anim] && seen(...f.puff)) {
+      const size = 4.5;
+      html += `<span class="chunks c-${f.anim}" style="left:${L(f.puff[0])};top:${T(f.puff[1])};width:${pc((size / vw) * 100)};--dl:${dl}s">${chunkPaths[f.anim]
+        .map(([x, y, mx, my, o]) => `<i style="--x:${x};--y:${y};--mx:${mx};--my:${my};--o:${o}s"></i>`).join('')}</span>`;
+    }
+    return html;
+  });
+  return `<div class="crew" aria-hidden="true">${parts.join('')}</div>`;
+};
+
 // A glass Christmas ornament hanging on a gold string, with a snow removal scene inside.
 const bauble = (s) => `
-      <div class="bauble"><span class="bauble-cap"></span><div class="bauble-glass">${pic(s.ornament, `${s.title}: miniature crew inside a glass Christmas ornament`, { dir: 'ornaments' })}</div></div>`;
+      <div class="bauble"><span class="bauble-cap"></span><div class="bauble-glass"><div class="scene">${pic(s.ornament, `${s.title}: miniature crew inside a glass Christmas ornament`, { dir: 'ornaments' })}${crew(s.ornament)}</div></div></div>`;
 
 const moreSection = () => `
 <section id="more" class="section more-section" aria-labelledby="more-title">
@@ -145,7 +180,7 @@ const snowfall = () => `<div class="snow" aria-hidden="true">${'<i></i>'.repeat(
 const home = () => {
   const body = `
 <section class="hero">
-  <div class="hero-bg"><picture><source srcset="/assets/img/hero-ornaments.webp" type="image/webp"><img src="/assets/img/hero-ornaments.jpg" alt="Snowy Christmas tree hung with clear glass baubles, a tiny shovelling crew inside each one" width="740" height="714" fetchpriority="high"></picture></div>
+  <div class="hero-bg"><div class="hero-art"><picture><source srcset="/assets/img/hero-ornaments.webp" type="image/webp"><img src="/assets/img/hero-ornaments.jpg" alt="Snowy Christmas tree hung with clear glass baubles, a tiny snow crew at work inside each one" width="1480" height="1428" fetchpriority="high"></picture>${crew('hero', true)}</div></div>
   ${bokeh()}
   ${snowfall()}
   <div class="container hero-inner">
