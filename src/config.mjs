@@ -107,11 +107,11 @@ export const partners = [
 // Photos from real jobs in Toronto. Images live in public/assets/img/work/
 // as .jpg + .webp with the same name; pass the name without extension.
 export const gallery = [
-  { img: 'job-driveway', alt: 'Driveway next to a brick home after snow and ice were removed' },
-  { img: 'job-walkway', alt: 'Shovelled path leading to the front door of a brick house in Toronto' },
+  { img: 'job-car-dig', alt: 'Worker digging out a driveway around a parked sedan under bare trees' },
+  { img: 'job-backyard', alt: 'Backyard by the basement stairs shovelled out under a porch light' },
+  { img: 'job-night-yard', alt: 'Snowy yard behind a house at night with a shovel left mid-job' },
+  { img: 'job-side-walk', alt: 'Path beside a parked car opened up through deep snow in the evening' },
   { img: 'job-flat-roof', alt: 'Flat roof behind a row of Toronto homes with the heavy snow shovelled off' },
-  { img: 'job-roof-deck', alt: 'Rooftop terrace by a door with snow cleared away at night' },
-  { img: 'job-roof-ledge', alt: 'Snow shovel resting on a narrow roof ledge cleared beside a brick wall' },
   { img: 'winter-icicles', alt: 'Long icicles along a snow-covered gutter' },
 ];
 
