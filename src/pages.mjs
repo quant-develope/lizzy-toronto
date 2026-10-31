@@ -1,4 +1,4 @@
-import { site, services, cities, partners, gallery } from './config.mjs';
+import { site, services, cities, partners, gallery, beforeAfter } from './config.mjs';
 import { guides } from './guides.mjs';
 import { page, esc, icon } from './layout.mjs';
 
@@ -196,6 +196,21 @@ ${marquee()}
       ${gallery.map((g) => `
       <figure class="work-item reveal">${pic(g.img, g.alt)}</figure>`).join('')}
     </div>
+  </div>
+</section>
+<section id="before-after" class="section ba-section" aria-labelledby="ba-title">
+  <div class="container">
+    <p class="kicker center reveal">Before &amp; after</p>
+    <h2 id="ba-title" class="section-title reveal">What one visit changes</h2>
+    <p class="section-sub reveal">Each pair is the same driveway or walk: the left frame when the crew pulled up, the right one when they finished.</p>
+    <div class="ba-grid">
+      ${beforeAfter.map((p) => `
+      <div class="ba-pair reveal">
+        <figure class="ba-shot">${pic('ba-' + p.before, 'Before: ' + p.alt)}<span class="ba-tag">Before</span></figure>
+        <figure class="ba-shot">${pic('ba-' + p.after, 'After: ' + p.alt)}<span class="ba-tag ba-tag-after">After</span></figure>
+      </div>`).join('')}
+    </div>
+    <figure class="ba-video reveal"><video src="/assets/video/salting.mp4" poster="/assets/video/salting-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Crew member spreading ice melt on a freshly cleared front step"></video></figure>
   </div>
 </section>
 <section class="section steps-section" aria-labelledby="how-title">
